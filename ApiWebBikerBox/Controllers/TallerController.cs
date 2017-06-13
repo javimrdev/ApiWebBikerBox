@@ -15,10 +15,20 @@ namespace ApiWebBikerBox.Controllers
     public class TallerController : ApiController
     {
 
-        [Route("login/registrarTaller/{nombre}/{correo}/{contrasena}/{descripcion}")]
+        [Route("taller/modificarTaller/{id}/{nombre}/{descripcion}")]
+        [HttpGet] //Always explicitly state the accepted HTTP method
+        public IHttpActionResult modificarTaller([FromUri] int id, [FromUri] string nombre, [FromUri] string descripcion)
+        {
+            var t = new Taller();
+            var correcto = t.modificarTaller(id, nombre, descripcion);
+
+            return Json(correcto);
+        }
+
+        [Route("login/registrarTaller/{nombre}/{correo}/{contrasena}/{descripcion}/{localidad}")]
         [HttpGet] //Always explicitly state the accepted HTTP method
         public IHttpActionResult registrarTaller([FromUri] string nombre,[FromUri] string correo,[FromUri] string contrasena,
-            [FromUri] string descripcion/*, [FromBody] string foto*/)
+            [FromUri] string descripcion,[FromUri] string localidad)
         {
             var t = new Taller();
             var a = new Talleres();
@@ -26,7 +36,7 @@ namespace ApiWebBikerBox.Controllers
             a.correo = correo;
             a.contrasena = contrasena;
             a.descripcion = descripcion;
-            /*a.foto = Encoding.ASCII.GetBytes(foto);*/
+            a.Localidad = localidad;
 
             var correcto = t.registrarTaller(a);
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace ApiWebBikerBox.Entity.AccesoDatos
@@ -47,6 +48,41 @@ namespace ApiWebBikerBox.Entity.AccesoDatos
                 moto.cilindrada = cilindrada;
                 moto.año = ano;
                 moto.estilo=estilo;
+                DBContext.Motos.Add(moto);
+                DBContext.SaveChanges();
+
+                var m = DBContext.Motos.Where(w => w.matricula == matricula).Single();
+
+                DuenoMotos d = new DuenoMotos();
+                d.idMoto = m.id;
+                d.idUsuario = idUsuario;
+                DBContext.DuenoMotos.Add(d);
+                DBContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool guardarMotoFoto(int idUsuario, string marca, string modelo, string matricula,
+            string color, int km, int cilindrada, int ano, string estilo, string foto)
+        {
+            try
+            {
+                //guardar moto
+                Motos moto = new Motos();
+                moto.marca = marca;
+                moto.modelo = modelo;
+                moto.matricula = matricula;
+                moto.color = color;
+                moto.km = km;
+                moto.cilindrada = cilindrada;
+                moto.año = ano;
+                moto.estilo = estilo;
+                moto.imagen = Encoding.ASCII.GetBytes(foto);
                 DBContext.Motos.Add(moto);
                 DBContext.SaveChanges();
 

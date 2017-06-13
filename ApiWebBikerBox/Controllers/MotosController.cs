@@ -56,5 +56,18 @@ namespace ApiWebBikerBox.Controllers
 
             return Json(motos);
         }
+
+        [Route("motos/anadirmotoUsuarioFoto/moto")]
+        [HttpPost] //Always explicitly state the accepted HTTP method
+        public IHttpActionResult anadirMotoUsuarioFoto([FromBody] int idUsuario, [FromBody] string marca, [FromBody] string modelo, [FromBody] string matricula,
+            [FromBody] string color, [FromBody] int km, [FromBody] int cilindrada, [FromBody] int ano, [FromBody] string estilo,[FromUri] string foto)
+        {
+            var a = new Moto();
+
+            var motos = a.guardarMotoFoto(idUsuario, marca, modelo, matricula,
+            color, km, cilindrada, ano, estilo,foto);
+
+            return Json(motos);
+        }
     }
 }
