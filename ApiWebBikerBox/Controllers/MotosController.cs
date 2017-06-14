@@ -20,6 +20,17 @@ namespace ApiWebBikerBox.Controllers
             return Json(motos);
         }
 
+        [Route("motos/anunciarMoto/{id}/{precio}")]
+        [HttpGet] //Always explicitly state the accepted HTTP method
+        public IHttpActionResult anunciarMoto([FromUri] int id, [FromUri] float precio)
+        {
+            var a = new Moto();
+
+            var motos = a.anunciarMoto(id,precio);
+
+            return Json(motos);
+        }
+
         [Route("motos/eliminarMoto/{id}")]
         [HttpGet] //Always explicitly state the accepted HTTP method
         public IHttpActionResult eliminarMoto([FromUri] int id)

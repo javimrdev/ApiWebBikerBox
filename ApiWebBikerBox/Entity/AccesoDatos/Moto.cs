@@ -18,6 +18,28 @@ namespace ApiWebBikerBox.Entity.AccesoDatos
         }
 
         #region motos
+        public bool anunciarMoto(int id, float precio)
+        {
+            try
+            {
+                var m = DBContext.Motos.Where(w => w.id == id).First();
+                var d = DBContext.DuenoMotos.Where(w => w.idMoto == id).First();
+                var du = DBContext.Usuarios.Where(w => w.id == d.idUsuario).First();
+                Anuncios a = new Anuncios();
+                a.idMoto = m.id;
+                a.localidad = du.localidad;
+                a.idUsuario = du.id;
+                a.precio = precio;
+                DBContext.Anuncios.Add(a);
+                DBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
 
         public List<Vista_MotoIdUsuario> obtenerMotosIdUsuario(int id)
         {
