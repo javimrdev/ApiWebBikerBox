@@ -38,6 +38,17 @@ namespace ApiWebBikerBox.Entity.AccesoDatos
             }
         }
 
+        public List<Talleres> obtenerTalleresLocalidad(string localidad)
+        {
+            var t = new List<Talleres>();
+            try
+            {
+                t = DBContext.Talleres.Where(w => w.Localidad==localidad).ToList();
+            }
+            catch (Exception e){}
+            return t;
+        }
+
         public Talleres registrarTaller(Talleres taller)
         {
             try

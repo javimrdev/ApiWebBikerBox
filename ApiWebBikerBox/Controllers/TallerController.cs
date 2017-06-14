@@ -15,6 +15,16 @@ namespace ApiWebBikerBox.Controllers
     public class TallerController : ApiController
     {
 
+        [Route("taller/obtenertalleres/{localidad}")]
+        [HttpGet] //Always explicitly state the accepted HTTP method
+        public IHttpActionResult modificarTaller([FromUri] string localidad)
+        {
+            var t = new Taller();
+            var correcto = t.obtenerTalleresLocalidad(localidad);
+
+            return Json(correcto);
+        }
+
         [Route("taller/modificarTaller/{id}/{nombre}/{descripcion}")]
         [HttpGet] //Always explicitly state the accepted HTTP method
         public IHttpActionResult modificarTaller([FromUri] int id, [FromUri] string nombre, [FromUri] string descripcion)
